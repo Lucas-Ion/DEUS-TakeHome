@@ -62,9 +62,7 @@ async def get_contract(db: AsyncSession, contract_id: int) -> Contract | None:
     return result.scalar_one_or_none()
 
 
-async def list_contracts(
-    db: AsyncSession, skip: int = 0, limit: int = 100
-) -> list[Contract]:
+async def list_contracts(db: AsyncSession, skip: int = 0, limit: int = 100) -> list[Contract]:
     """
     Return a paginated list of all contracts.
 
@@ -80,9 +78,7 @@ async def list_contracts(
     return list(result.scalars().all())
 
 
-async def list_contracts_for_client(
-    db: AsyncSession, client_id: int
-) -> list[Contract]:
+async def list_contracts_for_client(db: AsyncSession, client_id: int) -> list[Contract]:
     """
     Return all contracts belonging to a specific cliet.
 
@@ -93,7 +89,5 @@ async def list_contracts_for_client(
     Returns:
         List of Contract instances for the given client.
     """
-    result = await db.execute(
-        select(Contract).where(Contract.client_id == client_id)
-    )
+    result = await db.execute(select(Contract).where(Contract.client_id == client_id))
     return list(result.scalars().all())

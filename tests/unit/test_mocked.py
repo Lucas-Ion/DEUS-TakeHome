@@ -46,6 +46,7 @@ async def test_list_clients_mocked(client):
         assert response.json() == []
         mock_list.assert_called_once()
 
+
 @pytest.mark.asyncio
 async def test_get_vessel_not_found_mocked(client):
     """
@@ -62,6 +63,7 @@ async def test_get_vessel_not_found_mocked(client):
         response = await client.get("/api/v1/vessels/99999")
         assert response.status_code == 404
         mock_get.assert_called_once()
+
 
 @pytest.mark.asyncio
 async def test_get_contract_not_found_mocked(client):
@@ -106,6 +108,7 @@ async def test_create_contract_invalid_client_mocked(client):
         assert response.status_code == 422
         assert "does not exist" in response.json()["detail"]
         mock_create.assert_called_once()
+
 
 @pytest.mark.asyncio
 async def test_get_cargo_not_found_mocked(client):

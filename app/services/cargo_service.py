@@ -34,9 +34,7 @@ async def create_cargo(db: AsyncSession, payload: CargoCreate) -> Cargo:
         ValueError: If contract does not exist, cargo already exists for it,
                     or the referenced vessel does not exist.
     """
-    contract_result = await db.execute(
-        select(Contract).where(Contract.id == payload.contract_id)
-    )
+    contract_result = await db.execute(select(Contract).where(Contract.id == payload.contract_id))
     if contract_result.scalar_one_or_none() is None:
         raise ValueError(f"Contract id={payload.contract_id} does not exist")
 
@@ -47,9 +45,7 @@ async def create_cargo(db: AsyncSession, payload: CargoCreate) -> Cargo:
         raise ValueError(f"Cargo already exists for contract id={payload.contract_id}")
 
     if payload.vessel_id is not None:
-        vessel_result = await db.execute(
-            select(Vessel).where(Vessel.id == payload.vessel_id)
-        )
+        vessel_result = await db.execute(select(Vessel).where(Vessel.id == payload.vessel_id))
         if vessel_result.scalar_one_or_none() is None:
             raise ValueError(f"Vessel id={payload.vessel_id} does not exist")
 
@@ -99,9 +95,7 @@ async def get_cargo_with_history(db: AsyncSession, cargo_id: int) -> Cargo | Non
         Cargo instance with tracking_events loaded, or None if not found.
     """
     result = await db.execute(
-        select(Cargo)
-        .options(selectinload(Cargo.tracking_events))
-        .where(Cargo.id == cargo_id)
+        select(Cargo).options(selectinload(Cargo.tracking_events)).where(Cargo.id == cargo_id)
     )
     return result.scalar_one_or_none()
 
@@ -145,9 +139,7 @@ async def update_cargo_status(
         return None
 
     if payload.vessel_id is not None:
-        vessel_result = await db.execute(
-            select(Vessel).where(Vessel.id == payload.vessel_id)
-        )
+        vessel_result = await db.execute(select(Vessel).where(Vessel.id == payload.vessel_id))
         if vessel_result.scalar_one_or_none() is None:
             raise ValueError(f"Vessel id={payload.vessel_id} does not exist")
         cargo.vessel_id = payload.vessel_id
@@ -209,9 +201,7 @@ async def add_tracking_event(
     return event
 
 
-async def list_tracking_events(
-    db: AsyncSession, cargo_id: int
-) -> list[TrackingEvent]:
+async def list_tracking_events(db: AsyncSession, cargo_id: int) -> list[TrackingEvent]:
     """
     Return all tracking events for a cargo ordered by recorded_at in ascending order.
 

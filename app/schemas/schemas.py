@@ -47,9 +47,7 @@ class VesselBase(BaseModel):
 
     name: str = Field(..., max_length=255, examples=["Atlantic Star Vessels"])
     capacity_tons: PositiveFloat = Field(..., examples=[25000.0])
-    current_location: str | None = Field(
-        None, max_length=255, examples=["Port of Rotterdam"]
-    )
+    current_location: str | None = Field(None, max_length=255, examples=["Port of Rotterdam"])
 
 
 class VesselCreate(VesselBase):
