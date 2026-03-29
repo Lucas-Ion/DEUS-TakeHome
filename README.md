@@ -1,6 +1,6 @@
 # DEUS Logistics API
 
-A RESTful API for managing a logistics company that ships general goods via vessels. Built with FastAPI, SQLAlchemy, and SQLite, designed for deployment on Azure Container Apps.
+A RESTful API for managing a logistics company that ships general goods via vessels.
 
 ---
 
