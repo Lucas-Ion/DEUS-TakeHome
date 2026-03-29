@@ -151,6 +151,8 @@ Loguru was chosen over the standard `logging` module for its significantly clean
 
 In production, when `APPLICATIONINSIGHTS_CONNECTION_STRING` is set, logs, traces, and exceptions are automatically forwarded to Azure Application Insights via the `azure-monitor-opentelemetry` package.
 
+<img width="1407" height="827" alt="Screenshot 2026-03-30 at 01 41 37" src="https://github.com/user-attachments/assets/6188c770-d6f6-449a-b923-33c4e35c0452" />
+
 ### Error Handling
 
 Business rule violations (e.g. referencing a non-existent client, duplicate email) are raised as `ValueError` in the service layer and caught at the endpoint layer where they are converted to HTTP 422 responses. Database integrity errors (`IntegrityError`) are caught at the service layer before they propagate as unhandled 500 errors.
