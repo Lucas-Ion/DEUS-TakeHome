@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+ 
+[project]
+name = "deus-logistics"
+version = "1.0.0"
+description = "DEUS Logistics API for vessel and cargo shipment management"
+requires-python = ">=3.13"
+ 
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+ 
+[tool.ruff.lint]
+select = [
+    "E",   
+    "W",   
+    "F",  
+    "I",  
+    "B",   
+    "C4",  
+    "UP", 
+    "N",  
+    "S",   
+    "ANN",
+]
+ignore = [
+    "ANN101", 
+    "ANN102", 
+    "S101",
+    "B008",
+    "S104",
+    "B904",
+    "UP042",
+    "UP043",  
+]
+ 
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    "S101",  
+    "ANN",   
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+ 
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+show_error_codes = true
+ 
+plugins = ["sqlalchemy.ext.mypy.plugin"]
+ 
+[[tool.mypy.overrides]]
+module = [
+    "sqlalchemy.*",
+    "aiosqlite.*",
+]
+ignore_missing_imports = true
+ 
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+log_cli = true
+log_cli_level = "INFO"
