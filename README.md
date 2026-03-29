@@ -30,12 +30,14 @@ The core pieces are:
 - **Cargoes** - goods being transported under a specific contract
 - **Tracking Events** - an immutable audit log of cargo movements and locations
 
----
+
+### To interact with the deployed API online, click [HERE!](https://deus-logistics-api.wonderfulmeadow-a48258d9.westeurope.azurecontainerapps.io/docs)
+
 
 ## Setup Instructions
 
 
-### Local Development
+### For running locally
 
 Clone the repository:
 
@@ -43,8 +45,7 @@ Clone the repository:
 git clone https://github.com/Lucas-Ion/DEUS-TakeHome.git
 cd DEUS-TakeHome
 ```
-
-To set up manually:
+Then run:
 
 ```
 python3 -m venv antenv
@@ -60,14 +61,18 @@ cp .env.example .env
 
 The default values in `.env.example` work for local development without any changes.
 
----
 
+You can now start the application:
+```
+uvicorn app.app:app --reload
+```
 
-The API docs and health check are available at:
+The API will be available at:
 
 - `http://localhost:8000/health` — health check
 - `http://localhost:8000/docs` — Swagger UI
 - `http://localhost:8000/redoc` — ReDoc
+---
 
 ### If you want to run with Docker
 
@@ -368,15 +373,15 @@ For the pipeline I used my Azure cli to create a credential for RBAC
 
 ## Some final Production Considerations
 
-I thought it wise to lay out some considerations in this code which would differ in a production scope and which would be addressed before taking this system to production:
+In conclusion I want to also lay out some last considerations in this code which would differ in a production scope and which would be addressed before taking this system to production:
 
-**Database** - I would switch to PostgreSQL via Azure Database for PostgreSQL.
+Database - I would switch to PostgreSQL via Azure Database for PostgreSQL.
 
-**Authentication** - Right now the API currently has no authentication layer. In production I would require JWT-based authentication or OAuth2 with role-based access control so clients can only access their own contracts and cargo.
+Authentication - Right now the API currently has no authentication layer. In production I would require JWT-based authentication or OAuth2 with role-based access control so clients can only access their own contracts and cargo.
 
-**Infrastructure as Code** - Azure infrastructure was provisioned via the Azure Portal for this submission. Production infrastructure would be defined using Azure Bicep (as that is what I am familiar with) or of course Terraform as an alternative
+Infrastructure as Code - Azure infrastructure was provisioned via the Azure Portal for this submission. Production infrastructure would be defined using Azure Bicep (as that is what I am familiar with) or of course Terraform as an alternative
 
-**Integration Tests** - Right now the current test suite covers all endpoints with unit-level tests. In a prod codebase I would add integration tests covering multi-step flows such as the full lifecycle from client creation through contract signing, cargo assignment, and delivery tracking etc.
+Integration Tests - Right now the current test suite covers all endpoints with unit-level tests. In a prod codebase I would add integration tests covering multi-step flows such as the full lifecycle from client creation through contract signing, cargo assignment, and delivery tracking etc.
 
 ---
 
